@@ -73,7 +73,8 @@ SELECT g.game_id,
 	v.state,
 	v.full_address,
 	v.lat,
-	v.lon
+	v.lon,
+	v.metro_area
 FROM games g
 JOIN v_team_venues v ON g.home_id = v.team_id
 ORDER BY game_id);
@@ -105,7 +106,8 @@ SELECT g.game_id,
 	v.state,
 	v.full_address,
 	v.lat,
-	v.lon
+	v.lon,
+	v.metro_area
 FROM games g
  JOIN v_team_venues v ON g.home_id = v.team_id
 ORDER BY g.game_id);
@@ -140,7 +142,8 @@ SELECT g.game_id,
 	CASE WHEN g.venue_city = v.city THEN v.state END AS state,
 	CASE WHEN g.venue_city = v.city THEN v.full_address END AS full_address,
 	CASE WHEN g.venue_city = v.city THEN v.lat END AS lat,
-	CASE WHEN g.venue_city = v.city THEN v.lon END AS lon
+	CASE WHEN g.venue_city = v.city THEN v.lon END AS lon,
+	CASE WHEN g.venue_city = v.city THEN v.metro_area END AS metro_area
 FROM games g
 	JOIN v_team_venues v ON g.home_id = v.team_id
 ORDER BY g.game_id);
@@ -172,7 +175,8 @@ SELECT g.game_id,
 	v.state,
 	v.full_address,
 	v.lat,
-	v.lon
+	v.lon,
+	v.metro_area
 FROM games g
  JOIN v_team_venues v ON g.home_id = v.team_id
 ORDER BY g.game_id);
@@ -204,7 +208,8 @@ SELECT g.game_id,
 	v.state,
 	v.full_address,
 	v.lat,
-	v.lon
+	v.lon,
+	v.metro_area
 FROM games g
  JOIN v_team_venues v ON g.home_id = v.team_id
 ORDER BY g.game_id);
@@ -225,7 +230,8 @@ SELECT 'mlb' AS league,
 	state,
 	full_address,
 	lat,
-	lon
+	lon,
+	metro_area
 FROM v_mlb_game_venues
 
 UNION ALL
@@ -243,7 +249,8 @@ SELECT 'mls' AS league,
 	state,
 	full_address,
 	lat,
-	lon
+	lon,
+	metro_area
 FROM v_mls_game_venues
 
 UNION ALL
@@ -261,7 +268,8 @@ SELECT 'nba' AS league,
 	state,
 	full_address,
 	lat,
-	lon
+	lon,
+	metro_area
 FROM v_nba_game_venues
 
 UNION ALL
@@ -279,7 +287,8 @@ SELECT 'nfl' AS league,
 	state,
 	full_address,
 	lat,
-	lon
+	lon,
+	metro_area
 FROM v_nfl_game_venues
 
 UNION ALL
@@ -297,6 +306,7 @@ SELECT 'nhl' AS league,
 	state,
 	full_address,
 	lat,
-	lon
+	lon,
+	metro_area
 FROM v_nhl_game_venues
 ORDER BY game_id);
