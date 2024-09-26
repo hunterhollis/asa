@@ -137,13 +137,14 @@ SELECT g.game_id,
 	g.away_id,
 	g.away_name,
 -- different logic to handle neutral site (e.g. international) games
-	CASE WHEN g.venue_city = v.city THEN v.current_stadium ELSE g.venue_name END AS venue_name,
-	CASE WHEN g.venue_city = v.city THEN v.city ELSE g.venue_city END AS city,
-	CASE WHEN g.venue_city = v.city THEN v.state END AS state,
-	CASE WHEN g.venue_city = v.city THEN v.full_address END AS full_address,
-	CASE WHEN g.venue_city = v.city THEN v.lat END AS lat,
-	CASE WHEN g.venue_city = v.city THEN v.lon END AS lon,
-	CASE WHEN g.venue_city = v.city THEN v.metro_area END AS metro_area
+-- exception made to handle Raiders in "Paradise" versus "Las Vegas"
+	CASE WHEN g.venue_city = v.city OR g.venue_city = 'Las Vegas' THEN v.current_stadium ELSE g.venue_name END AS venue_name,
+	CASE WHEN g.venue_city = v.city OR g.venue_city = 'Las Vegas' THEN v.city ELSE g.venue_city END AS city,
+	CASE WHEN g.venue_city = v.city OR g.venue_city = 'Las Vegas' THEN v.state END AS state,
+	CASE WHEN g.venue_city = v.city OR g.venue_city = 'Las Vegas' THEN v.full_address END AS full_address,
+	CASE WHEN g.venue_city = v.city OR g.venue_city = 'Las Vegas' THEN v.lat END AS lat,
+	CASE WHEN g.venue_city = v.city OR g.venue_city = 'Las Vegas' THEN v.lon END AS lon,
+	CASE WHEN g.venue_city = v.city OR g.venue_city = 'Las Vegas' THEN v.metro_area END AS metro_area
 FROM games g
 	JOIN v_team_venues v ON g.home_id = v.team_id
 ORDER BY g.game_id);
