@@ -63,7 +63,7 @@ class apiSports:
         if endpoint=='games':
             if self.sport=='baseball':
                 # date data types
-                df['datetime'] = pd.to_datetime(df['date'])
+                df['datetime'] = pd.to_datetime([d[0] for d in df['date'].str.rsplit('-', n=1)])
                 df['date'] = df['datetime'].dt.date
 
                 # expand teams
@@ -95,7 +95,7 @@ class apiSports:
                 df = df[cols]
             elif self.sport=='basketball':
                 # date data types
-                df['datetime'] = pd.to_datetime(df['date'])
+                df['datetime'] = pd.to_datetime([d[0] for d in df['date'].str.rsplit('-', n=1)])
                 df['date'] = df['datetime'].dt.date
 
                 # expand teams
@@ -125,7 +125,7 @@ class apiSports:
                 df = df[cols]
             elif self.sport=='hockey':
                 # date data types
-                df['datetime'] = pd.to_datetime(df['date'])
+                df['datetime'] = pd.to_datetime([d[0] for d in df['date'].str.rsplit('-', n=1)])
                 df['date'] = df['datetime'].dt.date
 
                 # expand teams
@@ -178,7 +178,7 @@ class apiSports:
                 df_clean = pd.json_normalize(df.fixture)[['id', 'date', 'timestamp', 'timezone',
                                                                     'venue.id', 'status.short']]
 
-                df_clean['datetime'] = pd.to_datetime(df_clean['date'])
+                df_clean['datetime'] = pd.to_datetime([d[0] for d in df_clean['date'].str.rsplit('-', n=1)])
                 df_clean['date'] = df_clean['datetime'].dt.date
 
                 df_clean = df_clean.rename(columns={'venue.id': 'venue_id', 'status.short': 'status'})
