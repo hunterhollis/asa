@@ -8,6 +8,7 @@ class apiSports:
         self.sport = sport
         self.version = version
 
+    # call API
     def request(self, payload, endpoint):
         url = f"https://{self.version}.{self.sport}.api-sports.io/"
         headers = {
@@ -17,6 +18,7 @@ class apiSports:
         response = requests.get(url=url+endpoint, headers=headers, params=payload).json()
         return response
     
+    # clean dataframes of API responses
     def clean(self, endpoint, df_current):
         df = df_current.copy()
         if endpoint=='teams':
