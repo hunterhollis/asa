@@ -407,7 +407,7 @@
         <calculation class='tableau' formula='COUNTD([home_name])' />
       </column>
       <column caption='Teams Completed' datatype='integer' name='[Calculation_2345812466615205889]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='153 - [Calculation_2345812466613616640]' />
+        <calculation class='tableau' formula='[Teams Remaining (copy)_5274278127069655040] - [Calculation_2345812466613616640]' />
       </column>
       <column caption='Metros Remaining' datatype='integer' name='[Calculation_2345812466725404676]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='COUNTD([metro_area])' />
@@ -432,6 +432,9 @@
       </column>
       <column caption='N Metros Available 100%' datatype='integer' name='[Metros Remaining (copy)_2345812466726326277]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='COUNTD(IF [Calculation_2231533681353203725] = [Metro Max 5-Day Total (copy)_2345812466974830598] THEN [metro_area] END)' />
+      </column>
+      <column aggregation='Avg' caption='Total Teams' datatype='integer' default-format='n#,##0;-#,##0' name='[Teams Remaining (copy)_5274278127069655040]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='153' />
       </column>
       <_.fcp.ObjectModelTableType.true...column caption='games_counts_data.csv' datatype='table' name='[__tableau_internal_object_id__].[games_counts_data.csv_EC85F746B7134A7786696EAF97388000]' role='measure' type='quantitative' />
       <column caption='Away Id' datatype='integer' name='[away_id]' role='dimension' type='ordinal' />
@@ -833,6 +836,7 @@
         <field-sort-custom-order field='home_id' />
         <field-sort-custom-order field='home_name' />
         <field-sort-custom-order field='Calculation_2345812466613616640' />
+        <field-sort-custom-order field='Teams Remaining (copy)_5274278127069655040' />
         <field-sort-custom-order field='Calculation_2345812466615205889' />
         <field-sort-custom-order field='Calculation_2231533681353203725' />
         <field-sort-custom-order field='Metro Teams (copy)_2345812466975887367' />
@@ -1120,20 +1124,24 @@
               <calculation class='tableau' formula='COUNTD([home_name])' />
             </column>
             <column caption='Teams Completed' datatype='integer' name='[Calculation_2345812466615205889]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='153 - [Calculation_2345812466613616640]' />
+              <calculation class='tableau' formula='[Teams Remaining (copy)_5274278127069655040] - [Calculation_2345812466613616640]' />
             </column>
-            <column caption='[Teams Completed]/[Teams Remaining]' datatype='real' name='[Calculation_2345812466633216003]' role='measure' type='quantitative' user:unnamed='BAN - Teams Completed (2)'>
-              <calculation class='tableau' formula='[Calculation_2345812466615205889]/[Calculation_2345812466613616640]' />
+            <column caption='[Teams Completed]/[Total Teams]' datatype='real' name='[Calculation_5274278127069954049]' role='measure' type='quantitative' user:unnamed='BAN - Progress %'>
+              <calculation class='tableau' formula='[Calculation_2345812466615205889]/[Teams Remaining (copy)_5274278127069655040]' />
             </column>
+            <column aggregation='Avg' caption='Total Teams' datatype='integer' default-format='n#,##0;-#,##0' name='[Teams Remaining (copy)_5274278127069655040]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='153' />
+            </column>
+            <column-instance column='[Teams Remaining (copy)_5274278127069655040]' derivation='Avg' name='[avg:Teams Remaining (copy)_5274278127069655040:qk]' pivot='key' type='quantitative' />
             <column caption='Home Name' datatype='string' name='[home_name]' role='dimension' type='nominal' />
             <column-instance column='[Calculation_2345812466615205889]' derivation='User' name='[usr:Calculation_2345812466615205889:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Calculation_2345812466633216003]' derivation='User' name='[usr:Calculation_2345812466633216003:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_5274278127069954049]' derivation='User' name='[usr:Calculation_5274278127069954049:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
           <aggregation value='true' />
         </view>
         <style>
           <style-rule element='cell'>
-            <format attr='text-format' field='[federated.0o98mlv1nfqq8m11ik4cs08pinve].[usr:Calculation_2345812466633216003:qk]' value='p0%' />
+            <format attr='text-format' field='[federated.0o98mlv1nfqq8m11ik4cs08pinve].[usr:Calculation_5274278127069954049:qk]' value='p0%' />
           </style-rule>
         </style>
         <panes>
@@ -1144,7 +1152,8 @@
             <mark class='Automatic' />
             <encodings>
               <tooltip column='[federated.0o98mlv1nfqq8m11ik4cs08pinve].[usr:Calculation_2345812466615205889:qk]' />
-              <text column='[federated.0o98mlv1nfqq8m11ik4cs08pinve].[usr:Calculation_2345812466633216003:qk]' />
+              <tooltip column='[federated.0o98mlv1nfqq8m11ik4cs08pinve].[avg:Teams Remaining (copy)_5274278127069655040:qk]' />
+              <text column='[federated.0o98mlv1nfqq8m11ik4cs08pinve].[usr:Calculation_5274278127069954049:qk]' />
             </encodings>
             <customized-tooltip>
               <formatted-text>
@@ -1152,16 +1161,14 @@
                 <run bold='true' fontcolor='#666666' fontname='Tableau Regular'>t</run>
                 <run fontcolor='#666666' fontname='Tableau Regular'>eams completed out of</run>
                 <run fontname='Tableau Regular'>Æ </run>
-                <run bold='true' fontname='Tableau Regular'>153</run>
+                <run bold='true' fontname='Tableau Regular'><![CDATA[<[federated.0o98mlv1nfqq8m11ik4cs08pinve].[avg:Teams Remaining (copy)_5274278127069655040:qk]>]]></run>
                 <run fontname='Tableau Regular'>Æ </run>
                 <run fontcolor='#666666' fontname='Tableau Regular'>total teams</run>
               </formatted-text>
             </customized-tooltip>
             <customized-label>
               <formatted-text>
-                <run fontname='Tableau Semibold' fontsize='22'>&lt;</run>
-                <run fontname='Tableau Semibold' fontsize='22'>[federated.0o98mlv1nfqq8m11ik4cs08pinve].[usr:Calculation_2345812466633216003:qk]</run>
-                <run fontname='Tableau Semibold' fontsize='22'>&gt;</run>
+                <run fontname='Tableau Semibold' fontsize='22'><![CDATA[<[federated.0o98mlv1nfqq8m11ik4cs08pinve].[usr:Calculation_5274278127069954049:qk]>]]></run>
               </formatted-text>
             </customized-label>
             <style>
@@ -1998,8 +2005,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1750' minheight='1750' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='79' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='78' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='81' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='80' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
                 <zone fixed-size='84' forceUpdate='true' h='11500' id='24' type-v2='text' w='64435' x='1000' y='1250'>
                   <formatted-text>
                     <run fontcolor='#333333' fontname='Tableau Semibold' fontsize='15'>Max 5-Day Opportunities</run>
