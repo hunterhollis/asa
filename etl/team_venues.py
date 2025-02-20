@@ -30,8 +30,9 @@ for i in range(len(urls)):
     try:
         lat = geo_data["results"][0]["lat"]
         lon = geo_data["results"][0]["lon"]
-    except KeyError:
+    except (KeyError, IndexError) as e:
         print(f"Error: no results in line {i}")
+        print(e)
         lat = 0
         lon = 0
     lats.append(lat)
