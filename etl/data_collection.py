@@ -41,7 +41,7 @@ api_status('nhl', nhl)
 def verify_api(league_object):
     sub = league_object.request({}, 'status')['response']['subscription']
     req = league_object.request({}, 'status')['response']['requests']
-    if (sub['active']==True) & (sub['plan']=='Free') & (req['limit_day']-req['current']>2):
+    if (sub['active']==True) & (sub['plan']!='Free') & (req['limit_day']-req['current']>2):
         return True
     else:
         return False
@@ -49,23 +49,23 @@ def verify_api(league_object):
 # dictionary of information relevant to updating each league
 league_info = {'mlb': {'object': mlb,
                    'id': '1',
-                   'current_season': 2022,
+                   'current_season': 2025,
                    'update': False},
             'mls': {'object': mls,
                    'id': '253',
-                   'current_season': 2022,
+                   'current_season': 2025,
                    'update': False},
             'nba': {'object': nba,
                    'id': '12',
-                   'current_season': 2022,
+                   'current_season': 2024,
                    'update': False},
             'nfl': {'object': nfl,
                    'id': '1',
-                   'current_season': 2022,
+                   'current_season': 2024,
                    'update': False},
             'nhl': {'object': nhl,
                    'id': '57',
-                   'current_season': 2022,
+                   'current_season': 2024,
                    'update': False}
               }
 
@@ -150,3 +150,5 @@ run_updates('teams')
 
 # run games update
 run_updates('games')
+
+# TODO: Add `venue` field for basketball games endpoint, added by new release from API
